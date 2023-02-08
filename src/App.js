@@ -19,6 +19,9 @@ import '@fontsource/roboto/400.css';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
+
+import ButtonSanitized from './Components/ButtonSanitized';
+
 const opts = [
   {
     value: 'v4Calc',
@@ -41,6 +44,7 @@ const opts = [
     label: 'IPv6 Mask',
   }
 ];
+
 
 function App() {
   return (
@@ -81,9 +85,8 @@ function App() {
             ))}
           </TextField>
         </Grid2>
-
         <Grid2 xs={8}>
-          <TextField fullWidth id="outlined-basic" label="Outlined" variant="outlined" />
+            <ButtonSanitized />
         </Grid2>
 
       </Grid2>
