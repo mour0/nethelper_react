@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
@@ -16,37 +16,21 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 
 
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+import BtnSanitized from './Components/BtnSanitized';
+import BtnAction from './Components/BtnActions'
+import ListResults from './Components/ListResults'
 
 
-import ButtonSanitized from './Components/ButtonSanitized';
+export default function App() {
+  const [state, setState] = useState(40)
 
-const opts = [
-  {
-    value: 'v4Calc',
-    label: 'IPv4',
-  },
-  {
-    value: 'v4Mask',
-    label: 'IPv4 Mask',
-  },
-  {
-    value: 'v4VLMS',
-    label: 'VLMS',
-  },
-  {
-    value: 'v6Calc',
-    label: 'IPv6',
-  },
-  {
-    value: 'v6Mask',
-    label: 'IPv6 Mask',
-  }
-];
+  //changeAction = value => {
+  //  this.setState({action: value},
+  //    () => {
+  //      console.log(this.state.action); // qui viene stampato il valore corretto
+  //    });
+  //}
 
-
-function App() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position="static">
@@ -70,23 +54,17 @@ function App() {
 
       <Container maxWidth="sm" sx={{p: 4}}>
       <Grid2 container spacing={2}>
+
         <Grid2 xs={4}>
-          <TextField fullWidth
-            id="outlined-select-action"
-            select
-            label="Select Action"
-            defaultValue="v4Calc"
-            //helperText="Please select your action"
-          >
-            {opts.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <BtnAction val={state} onActionChange={setState} />
         </Grid2>
+
         <Grid2 xs={8}>
-            <ButtonSanitized />
+            <BtnSanitized />
+        </Grid2>
+
+        <Grid2 xs={12}>
+            <ListResults />
         </Grid2>
 
       </Grid2>
@@ -98,7 +76,7 @@ function App() {
 
 
   );
+
 }
 
-export default App;
 
