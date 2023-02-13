@@ -16,7 +16,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 
 
-import BtnSanitized from './Components/BtnSanitized';
+import TxtSanitized from './Components/TxtSanitized';
 import BtnAction from './Components/BtnActions'
 import ListResults from './Components/ListResults'
 
@@ -53,21 +53,21 @@ export default function App() {
 
 
       <Container maxWidth="sm" sx={{p: 4}}>
-      <Grid2 container spacing={2}>
+        <Grid2 container spacing={2}>
 
-        <Grid2 xs={4}>
-          <BtnAction val={state} onActionChange={setState} />
+          <Grid2 xs={4}>
+            <BtnAction val={state} onActionChange={setState} />
+          </Grid2>
+
+          <Grid2 xs={8}>
+              <TxtSanitized val={state}/>
+          </Grid2>
+
+          <Grid2 item xs={12}>
+              <ListResults val={state} />
+          </Grid2>
+
         </Grid2>
-
-        <Grid2 xs={8}>
-            <BtnSanitized />
-        </Grid2>
-
-        <Grid2 xs={12}>
-            <ListResults />
-        </Grid2>
-
-      </Grid2>
       </Container>
 
 
