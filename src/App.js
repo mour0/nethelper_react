@@ -23,6 +23,7 @@ import ListResults from './Components/ListResults'
 
 export default function App() {
   const [state, setState] = useState(40)
+  const [output, setOutput] = useState([])
 
   //changeAction = value => {
   //  this.setState({action: value},
@@ -60,11 +61,11 @@ export default function App() {
           </Grid2>
 
           <Grid2 xs={8}>
-              <TxtSanitized val={state}/>
+              <TxtSanitized val={state} onOutputChange={setOutput} />
           </Grid2>
 
           <Grid2 item xs={12}>
-              <ListResults val={state} />
+              <ListResults val={state} output={output}/>
           </Grid2>
 
         </Grid2>

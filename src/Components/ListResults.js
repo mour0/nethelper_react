@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -83,12 +84,14 @@ function CondRender({val}) {
   return temp
 }
 
-export default function ListResults({val}) {
+export default function ListResults({val,output}) {
 
     //const handleActionChange = useCallback(event => {
     //    onActionChange(event.target.value)
     //    //console.log(event.target.value)
     //}, [onActionChange])
+    const [values, setValues] = useState([])
+    console.log("out:" + output)
 
     return (
       <CondRender val={val} />
