@@ -64,6 +64,16 @@ export default function App() {
               <TxtSanitized val={state} onOutputChange={setOutput} />
           </Grid2>
 
+          {
+            state == 42 ? 
+            (
+              <Grid2 item xs={12}>
+                <TxtSanitized val={state} onOutputChange={setOutput} />
+              </Grid2>
+            ) : (null)
+          }
+
+
           <Grid2 item xs={12}>
               <ListResults val={state} output={output}/>
           </Grid2>

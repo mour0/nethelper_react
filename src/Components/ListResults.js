@@ -4,81 +4,93 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 const SYM = '-'
-const STR_IPV4 = 'IPv4'
+const STR_NETWORK = 'Network'
+const STR_MASK = 'Subnet Mask'
+const STR_BROADCAST = 'Broadcast'
+const STR_WILDCARD = 'Wildcard'
+const STR_FIRSTHOST = 'First Host'
+const STR_LASTHOST = 'Last Host'
+const STR_SLASHNOTATION = 'Slash Notation'
+const STR_AVAIABLEADDR = 'Available Addresses'
+const STR_RANGESTART = 'Range Start'
+const STR_RANGEEND = 'Range End'
 
 
-function CondRender({val}) {
+
+const DEFAULT_STATE = ['-','-','-','-','-','-']
+
+function LineTitleContent({title,output}) {
+  return (
+    <ListItem>
+      <ListItemText primary={title} secondary={output} />
+    </ListItem>
+  )
+}
+
+
+
+
+function CondRender({val,output}) {
   let temp = (<ListItem></ListItem>)
+  // check if array 'output' is empty
+  if (output.length === 0) {
+    output = DEFAULT_STATE
+  }
+
   switch (val) 
   {
     case 40:
         temp = (
           <List>
-            <ListItem>
-              <ListItemText primary={STR_IPV4} secondary={SYM} />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Subnet Mask" secondary='-' />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Broadcast" secondary='-' />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Wildcard" secondary='-' />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="First Host" secondary='-' />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Last Host" secondary='-' />
-            </ListItem>
+            <LineTitleContent title={STR_NETWORK} output={output[0]} />
+            <LineTitleContent title={STR_MASK} output={output[1]} />
+            <LineTitleContent title={STR_WILDCARD} output={output[2]} />
+            <LineTitleContent title={STR_BROADCAST} output={output[3]} />
+            <LineTitleContent title={STR_FIRSTHOST} output={output[4]} />
+            <LineTitleContent title={STR_LASTHOST} output={output[5]} />
           </List>
         )
         break
     case 41:
         temp = (
-        <ListItem>
-          <ListItemText primary="Subnet Mask" secondary='-' />
-          <ListItemText primary="Wildcard" secondary='-' />
-          <ListItemText primary="Slash Notation" secondary='-' />
-          <ListItemText primary="Avaible Addresses" secondary='-' />
-        </ListItem>
+          <List>
+            <LineTitleContent title={STR_MASK} output={output[0]} />
+            <LineTitleContent title={STR_WILDCARD} output={output[1]} />
+            <LineTitleContent title={STR_SLASHNOTATION} output={output[2]} />
+            <LineTitleContent title={STR_AVAIABLEADDR} output={output[3]} />
+          </List>
         )
         break
     case 42:
         temp = (
-          <ListItem>
+          <List>
+            TODO
+          </List>
 
-          </ListItem> 
         )
         break
     case 60:
           temp = (
-            <ListItem>
-              <ListItemText primary="Network" secondary='-' />
-              <ListItemText primary="Subnet Mask" secondary='-' />
-              <ListItemText primary="Wildcard" secondary='-' />
-              <ListItemText primary="Range Start" secondary='-' />
-              <ListItemText primary="Range End" secondary='-' />
-            </ListItem>
+            <List>
+              <LineTitleContent title={STR_NETWORK} output={output[0]} />
+              <LineTitleContent title={STR_MASK} output={output[1]} />
+              <LineTitleContent title={STR_WILDCARD} output={output[2]} />
+              <LineTitleContent title={STR_RANGESTART} output={output[3]} />
+              <LineTitleContent title={STR_RANGEEND} output={output[4]} />
+            </List>
           )
           break
     case 61:
           temp = (
-            <ListItem>
-              <ListItemText primary="Subnet Mask" secondary='-' />
-              <ListItemText primary="Wildcard" secondary='-' />
-              <ListItemText primary="Slash Notation" secondary='-' />
-              <ListItemText primary="Avaible Addresses" secondary='-' />
-            </ListItem>
+            <List>
+              <LineTitleContent title={STR_MASK} output={output[0]} />
+              <LineTitleContent title={STR_WILDCARD} output={output[1]} />
+              <LineTitleContent title={STR_SLASHNOTATION} output={output[2]} />
+              <LineTitleContent title={STR_AVAIABLEADDR} output={output[3]} />
+            </List>
           )
           break
     default:
-        temp = (
-          <ListItem>
-
-          </ListItem>
-        )
         break
   }
   return temp
@@ -94,6 +106,6 @@ export default function ListResults({val,output}) {
     console.log("out:" + output)
 
     return (
-      <CondRender val={val} />
+      <CondRender val={val} output={output} />
     );
 }
