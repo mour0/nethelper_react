@@ -7,18 +7,20 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 
-export default function BtnActions({val, onActionChange}) {
+export default function BtnActions({val, onActionChange, onOutputChange}) {
 
     const handleActionChange = useCallback(event => {
         onActionChange(event.target.value)
-        //console.log(event.target.value)
+        onOutputChange("")
+        console.log(event.target.value)
+        
     }, [onActionChange])
 
 
     return (
 
         <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">Action</InputLabel>
             <Select
             labelId="demo-simple-select-label"
             id="select-action"

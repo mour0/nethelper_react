@@ -19,11 +19,15 @@ import '@fontsource/roboto/400.css';
 import TxtSanitized from './Components/TxtSanitized';
 import BtnAction from './Components/BtnActions'
 import ListResults from './Components/ListResults'
+import TxtHosts from './Components/TxtHosts';
 
 
 export default function App() {
   const [state, setState] = useState(40)
   const [output, setOutput] = useState([])
+
+  const [inputCIDR, setInputCIDR] = useState("");
+  const [inputHosts, setInputHosts] = useState("");
 
   //changeAction = value => {
   //  this.setState({action: value},
@@ -57,18 +61,31 @@ export default function App() {
         <Grid2 container spacing={2}>
 
           <Grid2 xs={4}>
-            <BtnAction val={state} onActionChange={setState} />
+            <BtnAction val={state} 
+              onOutputChange={setOutput} 
+              onActionChange={setState} 
+              onInputCIDR={setInputCIDR}
+              onInputHosts={setInputHosts} />
           </Grid2>
 
           <Grid2 xs={8}>
-              <TxtSanitized val={state} onOutputChange={setOutput} />
+              <TxtSanitized val={state} 
+              onOutputChange={setOutput} 
+              onInputCIDR={setInputCIDR}
+              inputCIDR={inputCIDR}
+              inputHosts={inputHosts} />
           </Grid2>
 
           {
             state == 42 ? 
             (
               <Grid2 item xs={12}>
-                <TxtSanitized val={state} onOutputChange={setOutput} />
+                <TxtHosts val={state} 
+                onOutputChange={setOutput} 
+                inputCIDR={inputCIDR}
+                inputHosts={inputHosts}
+                onInputHosts={setInputHosts}
+                />
               </Grid2>
             ) : (null)
           }

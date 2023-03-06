@@ -34,6 +34,9 @@ export default function TxtSanitized({val, onOutputChange}) {
         //    //console.log(event.target.value)
         //}, [onOutputChange])
 
+        // on change of 'val' clear textfield
+
+
         useEffect(() => {
             // on mount
             init().then(() => setWasmLoaded(true));
@@ -73,6 +76,7 @@ export default function TxtSanitized({val, onOutputChange}) {
                 {
                     let output = exp_hosts(event.target.value)
                     onOutputChange(output)
+
                     console.log(output)
                 } break
 
@@ -110,7 +114,7 @@ export default function TxtSanitized({val, onOutputChange}) {
 
             }
 
-
+            // clear textfield
         }
         else
         {

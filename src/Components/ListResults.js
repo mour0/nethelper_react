@@ -103,7 +103,7 @@ export default function ListResults({val,output}) {
     //    //console.log(event.target.value)
     //}, [onActionChange])
     const [values, setValues] = useState([])
-    console.log("out:" + output)
+    //console.log("out:" + output)
 
     return (
       <CondRender val={val} output={output} />
