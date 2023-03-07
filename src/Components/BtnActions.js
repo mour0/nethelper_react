@@ -7,11 +7,13 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 
-export default function BtnActions({val, onActionChange, onOutputChange}) {
+export default function BtnActions({val, onOutputChange, onActionChange, onInputCIDR, onInputHosts}) {
 
     const handleActionChange = useCallback(event => {
         onActionChange(event.target.value)
         onOutputChange("")
+        onInputCIDR("")
+        onInputHosts("")
         console.log(event.target.value)
         
     }, [onActionChange])

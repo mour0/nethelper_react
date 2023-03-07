@@ -20,14 +20,26 @@ import TxtSanitized from './Components/TxtSanitized';
 import BtnAction from './Components/BtnActions'
 import ListResults from './Components/ListResults'
 import TxtHosts from './Components/TxtHosts';
+import SnackbarError from './Components/SnackbarError';
 
 
 export default function App() {
   const [state, setState] = useState(40)
   const [output, setOutput] = useState([])
 
-  const [inputCIDR, setInputCIDR] = useState("");
-  const [inputHosts, setInputHosts] = useState("");
+  //const [inputCIDR, setInputCIDR] = useState("");
+  //const [inputHosts, setInputHosts] = useState("");
+
+  const [texts, setTexts] = useState({
+    cidr: '',
+    hosts: '',
+  })
+
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: '',
+  });
+
 
   //changeAction = value => {
   //  this.setState({action: value},
@@ -64,8 +76,13 @@ export default function App() {
             <BtnAction val={state} 
               onOutputChange={setOutput} 
               onActionChange={setState} 
-              onInputCIDR={setInputCIDR}
-              onInputHosts={setInputHosts} />
+              //onInputCIDR={setInputCIDR}
+              //onInputHosts={setInputHosts} 
+              texts={texts}
+              setTexts={setTexts}
+              
+              
+              />
           </Grid2>
 
           <Grid2 xs={8}>
@@ -73,7 +90,13 @@ export default function App() {
               onOutputChange={setOutput} 
               onInputCIDR={setInputCIDR}
               inputCIDR={inputCIDR}
-              inputHosts={inputHosts} />
+              inputHosts={inputHosts} 
+
+              texts={texts}
+              setTexts={setTexts}
+              
+              setSnackbarState={setSnackbarState}
+              />
           </Grid2>
 
           {
@@ -85,6 +108,8 @@ export default function App() {
                 inputCIDR={inputCIDR}
                 inputHosts={inputHosts}
                 onInputHosts={setInputHosts}
+
+                setSnackbarState={setSnackbarState}
                 />
               </Grid2>
             ) : (null)
@@ -96,8 +121,8 @@ export default function App() {
           </Grid2>
 
         </Grid2>
+        <SnackbarError state={snackbarState} setState={setSnackbarState}/>
       </Container>
-
 
 
     </Box>

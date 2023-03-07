@@ -24,7 +24,7 @@ const CALCULATOR_v6 = 40
 const MASK_V6 = 61
 
 
-export default function TxtSanitized({val, onOutputChange}) {
+export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCIDR, inputHosts, setSnackbarState}) {
 
         const [wasmLoaded, setWasmLoaded] = useState(false)
 
@@ -48,6 +48,9 @@ export default function TxtSanitized({val, onOutputChange}) {
 
     // --- FUNCTIONS ---
     const handleCalc = (event) => {
+        // TODO regex
+        onInputCIDR(event.target.value)
+
         if (event.target.value.length > 0) 
         {
             switch(val)
@@ -60,11 +63,14 @@ export default function TxtSanitized({val, onOutputChange}) {
                         try {
                             let output = exp_network(split[0],parse_num(split[1]))
                             onOutputChange(output)
-                            console.log(output)
+                            //console.log(output)
+                            setSnackbarState({open: false, message: ''})
                         }
                         catch (e) {
+                            setSnackbarState({open: true, message: e})
                             console.log('[handleCalc] - Error 40 - exception')
                         }
+
                     }
                     else
                     {
@@ -74,14 +80,21 @@ export default function TxtSanitized({val, onOutputChange}) {
 
                 case MASK_V4:
                 {
-                    let output = exp_hosts(event.target.value)
-                    onOutputChange(output)
+                    //try {
+                        let output = exp_hosts(event.target.value)
+                        //console.log(output)
+                        onOutputChange(output)
+                    //    setSnackbarState({open: false, message: ''})
+                    //}
+                    //catch (e) {
+                    //    setSnackbarState({open: true, message: e})
+                    //}
 
-                    console.log(output)
                 } break
 
                 case VLSM_v4: 
                 {
+                    // if inputhosts respect regex -> calculate and is not empty
 
                 } break
 
@@ -93,10 +106,12 @@ export default function TxtSanitized({val, onOutputChange}) {
                         try {
                             let output = exp_network6(split[0],parse_num(split[1]))
                             onOutputChange(output)
-                            console.log(output)
+                            //console.log(output)
+                            setSnackbarState({open: false, message: ''})
 
                         }
                         catch (e) {
+                            setSnackbarState({open: true, message: e})
                             console.log('[handleCalc] - Error 60 - exception')
                         }
                     }
@@ -108,11 +123,14 @@ export default function TxtSanitized({val, onOutputChange}) {
 
                 case MASK_V6:
                 {
-                    let output = exp_hosts6(event.target.value) //can't fail
+                    let output = exp_hosts6(event.target.value)
+                    onOutputChange(output)
+                    //setSnackbarState({open: true, message: e})
                     console.log(output)
                 }
 
             }
+
 
             // clear textfield
         }
@@ -133,6 +151,7 @@ export default function TxtSanitized({val, onOutputChange}) {
             variant="outlined"
             inputProps={{ pattern: '[0-9./]*' }}    
             onChange={(e) => {if (wasmLoaded) handleCalc(e)}}
+            value={inputCIDR}
         />
     );
 }

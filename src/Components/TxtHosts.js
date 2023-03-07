@@ -24,11 +24,10 @@ const CALCULATOR_v6 = 40
 const MASK_V6 = 61
 
 
-export default function TxtHosts({val, onOutputChange}) {
+export default function TxtHosts({val, onOutputChange, inputCIDR, inputHosts, onInputHosts, setSnackbarState}) {
 
         //const [wasmLoaded, setWasmLoaded] = useState(false)
-        const [host, setHost] = useState("")
-
+        const [temp, setTemp] = useState(false)
 
         //const handleValuesChange = useCallback(event => {
         //    onOutputChange(event.target.value)
@@ -45,28 +44,39 @@ export default function TxtHosts({val, onOutputChange}) {
         //}, []);
 
 
-
     // --- FUNCTIONS ---
     const handleCalc = (event) => {
-        // regex for the following string "3,4,5" and must start and end with a number
         const regex = /^[0-9\,]+$/
 
         if (event.target.value === "" || regex.test(event.target.value)) {
-            setHost(event.target.value)
+            console.log('value: ' +event.target.value)
+            onInputHosts(event.target.value)
+            console.log(inputHosts)
 
 
             if (event.target.value.length > 0) 
             {
-                switch(val)
+                if (val === VLSM_v4)
                 {
-                    case VLSM_v4: 
+                    let split = inputCIDR.split('/')
+                    if (split.length == 2)
                     {
-                        exp_vlsm(event.target.value)
-                        console.log("can calculate")
-                    } break
+                        try {
+                            console.log(split[0])
+                            console.log(parse_num(split[1]))
+                            console.log(inputHosts)
+                            let output = exp_vlsm(split[0],parse_num(split[1]),inputHosts)
+                            onOutputChange(output)
+                        }
+                        catch (e)
+                        {
+                            setSnackbarState({open: true, message: e})
 
+                        }
+
+                    }
+                    setTemp(false)
                 }
-
                 // clear textfield
             }
             else
@@ -74,24 +84,25 @@ export default function TxtHosts({val, onOutputChange}) {
                 console.log('[handleCalc] - else')
 
             }
-
-
-
+        }
+        else
+        {
+                setTemp(true)
         }
 
     };
 
     return (
         <TextField 
+            error={temp}
             required
             fullWidth 
-            pattern="[0-9./]+"
             id="outlined-basic" 
             label="HOSTS" 
             variant="outlined"
-            inputProps={{ pattern: '[0-9./]*' }}    
             onChange={(e) => {/*if (wasmLoaded)*/ handleCalc(e)}}
-            value={host}
+            value={inputHosts}
+            helperText='ex. 20,30,10'
         />
     );
 }
