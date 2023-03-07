@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
@@ -24,21 +24,22 @@ import SnackbarError from './Components/SnackbarError';
 
 
 export default function App() {
-  const [state, setState] = useState(40)
+  const [state, setState] = useState(42)
   const [output, setOutput] = useState([])
 
   //const [inputCIDR, setInputCIDR] = useState("");
   //const [inputHosts, setInputHosts] = useState("");
-
-  const [texts, setTexts] = useState({
-    cidr: '',
-    hosts: '',
-  })
+  //const [texts, setTexts] = useState({
+  //  cidr: '',
+  //  hosts: '',
+  //})
 
   const [snackbarState, setSnackbarState] = useState({
     open: false,
     message: '',
   });
+  const refCIDR = useRef(null);
+  const refHost = useRef(null);
 
 
   //changeAction = value => {
@@ -73,29 +74,26 @@ export default function App() {
         <Grid2 container spacing={2}>
 
           <Grid2 xs={4}>
-            <BtnAction val={state} 
+            <BtnAction 
+              val={state} 
               onOutputChange={setOutput} 
               onActionChange={setState} 
+              refCIDR={refCIDR}
               //onInputCIDR={setInputCIDR}
               //onInputHosts={setInputHosts} 
-              texts={texts}
-              setTexts={setTexts}
+              //setTexts={setTexts}
               
               
               />
           </Grid2>
 
           <Grid2 xs={8}>
-              <TxtSanitized val={state} 
+              <TxtSanitized 
+              val={state} 
               onOutputChange={setOutput} 
-              onInputCIDR={setInputCIDR}
-              inputCIDR={inputCIDR}
-              inputHosts={inputHosts} 
-
-              texts={texts}
-              setTexts={setTexts}
-              
+              refHost={refHost} 
               setSnackbarState={setSnackbarState}
+              ref={refCIDR} // ref to input in TextField to read CIDR value
               />
           </Grid2>
 
@@ -103,13 +101,12 @@ export default function App() {
             state == 42 ? 
             (
               <Grid2 item xs={12}>
-                <TxtHosts val={state} 
-                onOutputChange={setOutput} 
-                inputCIDR={inputCIDR}
-                inputHosts={inputHosts}
-                onInputHosts={setInputHosts}
-
-                setSnackbarState={setSnackbarState}
+                <TxtHosts 
+                  val={state} 
+                  onOutputChange={setOutput} 
+                  refCIDR={refCIDR}
+                  setSnackbarState={setSnackbarState}
+                  ref={refHost} // ref to input in TextField to read host value
                 />
               </Grid2>
             ) : (null)

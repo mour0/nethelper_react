@@ -19,7 +19,7 @@ const STR_RANGEEND = 'Range End'
 
 const DEFAULT_STATE = ['-','-','-','-','-','-']
 
-function LineTitleContent({title,output}) {
+function LineTitleContent({title, output, key}) {
   return (
     <ListItem>
       <ListItemText primary={title} secondary={output} />
@@ -31,10 +31,13 @@ function LineTitleContent({title,output}) {
 
 
 function CondRender({val,output}) {
-  let temp = (<ListItem></ListItem>)
+  let temp = (null)
+
   // check if array 'output' is empty
+  //console.log(output.length)
   if (output.length === 0) {
     output = DEFAULT_STATE
+    return temp;
   }
 
   switch (val) 
@@ -62,9 +65,18 @@ function CondRender({val,output}) {
         )
         break
     case 42:
-        temp = (
+          let array = []
+          for (let i in output) {
+            array.push(
+            <ListItem key={i}>
+            <ListItemText title={i} output={output[i]} />
+            </ListItem>
+            )
+          }
+
+          temp = (
           <List>
-            TODO
+          {array}
           </List>
 
         )
@@ -97,13 +109,6 @@ function CondRender({val,output}) {
 }
 
 export default function ListResults({val,output}) {
-
-    //const handleActionChange = useCallback(event => {
-    //    onActionChange(event.target.value)
-    //    //console.log(event.target.value)
-    //}, [onActionChange])
-    const [values, setValues] = useState([])
-    //console.log("out:" + output)
 
     return (
       <CondRender val={val} output={output} />

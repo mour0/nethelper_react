@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import TextField from '@mui/material/TextField';
 import init, {exp_network,exp_hosts,exp_network6,exp_hosts6,exp_vlsm} from 'wasm'
 //await init()
@@ -24,7 +24,7 @@ const CALCULATOR_v6 = 40
 const MASK_V6 = 61
 
 
-export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCIDR, inputHosts, setSnackbarState}) {
+const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState},ref) => {
 
         const [wasmLoaded, setWasmLoaded] = useState(false)
 
@@ -49,7 +49,8 @@ export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCID
     // --- FUNCTIONS ---
     const handleCalc = (event) => {
         // TODO regex
-        onInputCIDR(event.target.value)
+        //onInputCIDR(event.target.value)
+
 
         if (event.target.value.length > 0) 
         {
@@ -95,6 +96,7 @@ export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCID
                 case VLSM_v4: 
                 {
                     // if inputhosts respect regex -> calculate and is not empty
+                    console.log('refHost: ' +refHost.current.value)
 
                 } break
 
@@ -143,6 +145,7 @@ export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCID
 
     return (
         <TextField 
+            inputRef={ref}
             required
             fullWidth 
             pattern="[0-9./]+"
@@ -151,7 +154,9 @@ export default function TxtSanitized({val, onOutputChange, onInputCIDR, inputCID
             variant="outlined"
             inputProps={{ pattern: '[0-9./]*' }}    
             onChange={(e) => {if (wasmLoaded) handleCalc(e)}}
-            value={inputCIDR}
+            //value={inputCIDR}
         />
     );
-}
+});
+
+export default TxtSanitized;
