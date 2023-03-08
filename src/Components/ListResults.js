@@ -16,13 +16,12 @@ const STR_RANGESTART = 'Range Start'
 const STR_RANGEEND = 'Range End'
 
 
+const DEFAULT_STATE = Array(6).fill(SYM)
 
-const DEFAULT_STATE = ['-','-','-','-','-','-']
-
-function LineTitleContent({title, output, key}) {
+function LineTitleContent({title, output}) {
   return (
     <ListItem>
-      <ListItemText primary={title} secondary={output} />
+      <ListItemText sx={{whiteSpace:'pre-line'}} primary={title} secondary={output} />
     </ListItem>
   )
 }
@@ -37,7 +36,6 @@ function CondRender({val,output}) {
   //console.log(output.length)
   if (output.length === 0) {
     output = DEFAULT_STATE
-    return temp;
   }
 
   switch (val) 
@@ -65,21 +63,31 @@ function CondRender({val,output}) {
         )
         break
     case 42:
-          let array = []
-          for (let i in output) {
-            array.push(
-            <ListItem key={i}>
-            <ListItemText title={i} output={output[i]} />
-            </ListItem>
-            )
-          }
-
-          temp = (
+        if (output[0] === SYM) {
+          return temp;
+        }
+        temp = (
           <List>
-          {array}
+            {
+              output.map((el, index) => {
+                //console.log(el)
+                return (
+                  <LineTitleContent key={index} title={index} output={el} />
+                )
+              })
+            }
           </List>
-
         )
+        //let a = output.map((el, index) => { return (
+        //  <ListItem key={index}>
+        //    <ListItemText sx={{whiteSpace:'pre-line'}} primary={index} secondary={el} />
+        //  </ListItem>
+        //)})
+        //temp = (
+        //  <List>
+        //    {a}
+        //  </List>
+        //)
         break
     case 60:
           temp = (

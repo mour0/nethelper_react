@@ -24,7 +24,7 @@ import SnackbarError from './Components/SnackbarError';
 
 
 export default function App() {
-  const [state, setState] = useState(42)
+  const [state, setState] = useState(40)
   const [output, setOutput] = useState([])
 
   //const [inputCIDR, setInputCIDR] = useState("");
