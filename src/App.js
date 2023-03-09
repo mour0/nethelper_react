@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Store from '@mui/icons-material/Store';
+import ShopIcon from '@mui/icons-material/Shop';                
 
 import Grid2 from '@mui/material/Unstable_Grid2';
 
@@ -21,6 +21,9 @@ import BtnAction from './Components/BtnActions'
 import ListResults from './Components/ListResults'
 import TxtHosts from './Components/TxtHosts';
 import SnackbarError from './Components/SnackbarError';
+import { color } from '@mui/system';
+import { Link } from '@mui/material';
+
 
 
 export default function App() {
@@ -53,7 +56,7 @@ export default function App() {
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" color='secondary' component="div" sx={{ flexGrow: 1, fontWeight:'bold'}}>
             NetHelper
           </Typography>
           <IconButton
@@ -62,9 +65,9 @@ export default function App() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 //onClick={handleMenu}
-                color="inherit"
+                color="secondary"
               >
-              <Store />
+              <ShopIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -117,8 +120,63 @@ export default function App() {
               <ListResults val={state} output={output}/>
           </Grid2>
 
+
         </Grid2>
         <SnackbarError state={snackbarState} setState={setSnackbarState}/>
+        <br />
+        <Typography variant='h5' color='primary' component='h5'>
+          What is this tool?
+        </Typography>
+        <Typography variant="body1" component="p" gutterBottom paragraph>
+          NetHelper is a tool used to simplify the process of manually calculating broadcast addresses, wildcard masks,
+          and more.<br />
+          It supports IPv4 and IPv6 and shows the results in decimal and binary notation. <br />
+          Try also the <Link href="https://play.google.com/store/apps/details?id=com.maur.nethelper">NetHelper App</Link>!
+        </Typography>
+        <br />
+        <Typography variant='h5' color='primary' component='h5'>
+          How does it work?
+        </Typography>
+        <Typography variant="body1" component="p" gutterBottom paragraph>
+        NetHelper was made with simplicity in mind. <br />
+        Select what you want to calculate, insert a valid CIDR, and NetHelper will handle the rest. <br />
+        It might be possible to write an invalid CIDR or to provide too many hosts for subnetting, NetHelper will show you an error indicating that something is wrong!
+        </Typography>
+        <br />
+        <Typography variant='h5' color='primary' component='h5'>
+          How is everything calculated?
+        </Typography>
+        <Typography variant="body1" component="div" gutterBottom paragraph>
+          <Typography color='primary' display='inline'>Network Address</Typography> is calculated by doing a bitwise AND between IP address and the subnet mask.
+        </Typography>
+        <Typography variant="body1" component="div" gutterBottom paragraph>
+          <Typography color='primary' display='inline'>Wildcard mask</Typography> is an inverted subnet mask, calculated by doing a bitwise
+          NOT of the subnet mask.
+        </Typography>
+        <Typography variant="body1" component="div" gutterBottom paragraph>
+          <Typography color='primary' display='inline'>Broadcast Address</Typography> by doing a bitwise OR between the network address and
+          the wildcard mask.
+        </Typography>
+        <Typography variant="body1" component="div" gutterBottom paragraph>
+          <Typography color='primary' display='inline'>First and Last Hosts</Typography> by doing a bitwise OR between the network address and
+          the wildcard mask.
+        </Typography>
+        <Typography variant="body1" component="div" gutterBottom paragraph>
+          <Typography color='primary' display='inline'>Network Class</Typography> can either be A, B, C, D, or E. A Network Address can be
+          classified by the value of the first octet.
+        </Typography>
+        <br />
+        <Typography variant='h5' color='primary' component='h5'>
+          What is VLSM used for?
+        </Typography>
+        <Typography variant="body1" component="p" gutterBottom paragraph>
+        When you have to divide a network into multiple subnets, you can use VLSM to divide the network. <br />
+        Usually, you will be provided with a Network Address, a Subnet Mask, and some smaller networks with their required hosts. <br />
+        To manually subnet a network you must consider that 2 addresses are reserved for the network address and broadcast address or that you must start subnetting from the network with the highest amount of hosts to avoid overlapping networks. <br />
+        NetHelper will consider all of this and will automatically subnet your network, just by providing a CIDR and a list of networks with their hosts.
+        </Typography>
+
+
       </Container>
 
 
