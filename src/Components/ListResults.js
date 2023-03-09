@@ -67,7 +67,7 @@ function CondRender({val,output}) {
           return temp;
         }
         temp = (
-          <List>
+          <List sx={{maxHeight: 400, overflow: 'auto'}}>
             {
               output.map((el, index) => {
                 //console.log(el)

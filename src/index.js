@@ -73,6 +73,9 @@ const darkTheme = createTheme({
     primary: {
       main: cLightBlue[200],
     },
+    secondary: {
+      main: '#121212',
+    },
     background: {
       default: '#121212',
       paper: cLightBlue[200],

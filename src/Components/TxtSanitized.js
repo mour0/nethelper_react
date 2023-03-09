@@ -24,6 +24,12 @@ const CALCULATOR_v6 = 40
 const MASK_V6 = 61
 
 
+const HELPER_V4 = 'ex. 192.168.1.1/24'
+const HELPER_MASK4 = 'ex. 24'
+const HELPER_VLSM4 = 'ex. 192.168.1.1/[1-30]'
+const HELPER_V6 = 'ex. 2001:db8:85a3::8a2e:370:7334/64'
+const HELPER_MASK6 = '64'
+
 const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState},ref) => {
 
         const [wasmLoaded, setWasmLoaded] = useState(false)
@@ -96,7 +102,21 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
                 case VLSM_v4: 
                 {
                     // if inputhosts respect regex -> calculate and is not empty
-                    console.log('refHost: ' +refHost.current.value)
+                    //console.log('refHost: ' +refHost.current.value)
+                    let split = event.target.value.split('/');
+                    if (refHost.current.value.length > 0 && split.length == 2)
+                    {
+                        try {
+                            let output = exp_vlsm(split[0], parse_num(split[1]),refHost.current.value)
+                            onOutputChange(output)
+                            //console.log(output)
+                            setSnackbarState({open: false, message: ''})
+                        }
+                        catch (e) {
+                            setSnackbarState({open: true, message: e})
+                            //console.log('[handleCalc] - Error 42 - exception')
+                        }
+                    }
 
                 } break
 
@@ -154,9 +174,31 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
             variant="outlined"
             inputProps={{ pattern: '[0-9./]*' }}    
             onChange={(e) => {if (wasmLoaded) handleCalc(e)}}
+            helperText={setHelper(val)}
             //value={inputCIDR}
         />
     );
 });
+
+
+function setHelper(val)
+{
+    switch (val)
+    {
+        case CALCULATOR_v4:
+            return HELPER_V4
+        case MASK_V4:
+            return HELPER_MASK4
+        case VLSM_v4:
+            return HELPER_VLSM4
+        case CALCULATOR_v6:
+            return HELPER_V6
+        case MASK_V6:
+            return HELPER_MASK6
+        default:
+            return 'Helper error'
+    }
+
+}
 
 export default TxtSanitized;

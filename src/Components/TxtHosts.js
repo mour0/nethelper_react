@@ -50,7 +50,7 @@ const TxtHosts = forwardRef(({val, onOutputChange, refCIDR, setSnackbarState}, r
             console.log('inputCIDR: ' + refCIDR.current.value)
 
 
-            if (event.target.value.length > 0) 
+            if (event.target.value.length > 0 && refCIDR.current.value.length > 0) 
             {
                 if (val === VLSM_v4)
                 {
