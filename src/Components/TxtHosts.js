@@ -67,6 +67,7 @@ const TxtHosts = forwardRef(({val, onOutputChange, refCIDR, setSnackbarState}, r
                         catch (e)
                         {
                             setSnackbarState({open: true, message: e})
+                            onOutputChange([])
 
                         }
 

@@ -82,6 +82,7 @@ export default function App() {
               onOutputChange={setOutput} 
               onActionChange={setState} 
               refCIDR={refCIDR}
+              setSnackbarState={setSnackbarState}
               //onInputCIDR={setInputCIDR}
               //onInputHosts={setInputHosts} 
               //setTexts={setTexts}

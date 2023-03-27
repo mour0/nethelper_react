@@ -75,6 +75,7 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
                         }
                         catch (e) {
                             setSnackbarState({open: true, message: e})
+                            onOutputChange([])
                             console.log('[handleCalc] - Error 40 - exception')
                         }
 
@@ -87,15 +88,16 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
 
                 case MASK_V4:
                 {
-                    //try {
+                    try {
                         let output = exp_hosts(event.target.value)
                         //console.log(output)
                         onOutputChange(output)
-                    //    setSnackbarState({open: false, message: ''})
-                    //}
-                    //catch (e) {
-                    //    setSnackbarState({open: true, message: e})
-                    //}
+                        setSnackbarState({open: false, message: ''})
+                    }
+                    catch (e) {
+                        setSnackbarState({open: true, message: e})
+                        onOutputChange([])
+                    }
 
                 } break
 
@@ -114,6 +116,7 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
                         }
                         catch (e) {
                             setSnackbarState({open: true, message: e})
+                            onOutputChange([])
                             //console.log('[handleCalc] - Error 42 - exception')
                         }
                     }
@@ -134,6 +137,7 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
                         }
                         catch (e) {
                             setSnackbarState({open: true, message: e})
+                            onOutputChange([])
                             console.log('[handleCalc] - Error 60 - exception')
                         }
                     }
@@ -145,11 +149,20 @@ const TxtSanitized = forwardRef(({val, onOutputChange, refHost,setSnackbarState}
 
                 case MASK_V6:
                 {
-                    let output = exp_hosts6(event.target.value)
-                    onOutputChange(output)
-                    //setSnackbarState({open: true, message: e})
-                    console.log(output)
+                    try {
+                        let output = exp_hosts6(event.target.value)
+                        //console.log(output)
+                        onOutputChange(output)
+                        setSnackbarState({open: false, message: ''})
+                    }
+                    catch (e) {
+                        setSnackbarState({open: true, message: e})
+                        onOutputChange([])
+                    }
+
+
                 }
+
 
             }
 

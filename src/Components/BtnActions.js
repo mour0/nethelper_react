@@ -7,11 +7,12 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 
-export default function BtnActions({val, onOutputChange, onActionChange, refCIDR}) {
+export default function BtnActions({val, onOutputChange, onActionChange, refCIDR, setSnackbarState}) {
 
     const handleActionChange = useCallback(event => {
         onActionChange(event.target.value)
         onOutputChange([])
+        setSnackbarState({open: false, message: ''})
         refCIDR.current.value = ""
         //setTexts({ cidr:'',hosts:'' })
         console.log(event.target.value)
