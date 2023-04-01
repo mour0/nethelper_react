@@ -118,7 +118,7 @@ export default function App() {
 
 
           <Grid2 item xs={12}>
-              <ListResults val={state} output={output}/>
+              <ListResults val={state} output={output} setSnackbarState={setSnackbarState}/>
           </Grid2>
 
 

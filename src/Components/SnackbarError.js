@@ -18,7 +18,7 @@ export default function SnackbarError({ state, setState }) {
         anchorOrigin={pos}
         open={open}
         autoHideDuration={dur_hide}
-        //onClose={handleClose}
+        onClose={handleClose}
         message={message}
         action={null}
       />

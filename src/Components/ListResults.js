@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 
 const SYM = '-'
 const STR_NETWORK = 'Network'
@@ -118,30 +119,46 @@ function CondRender({ val, output }) {
 }
 
 
-export default function ListResults({ val, output }) {
+
+
+export default function ListResults({ val, output, setSnackbarState }) {
   const [svg, setSVG] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
+
+
     const URL = 'http://localhost:3001'
-    let n = output[0].split('\n')[0]
-    let br = output[3].split('\n')[0]
+    
+    if (output.length == 0)
+    {
+      setSnackbarState({open: true, message: 'No generated content'})
+      return
+    }
+
+    let n_split = output[0].split(' ')
+    let br_split = output[3].split('\n')
+    let n = n_split[0]
+    let br = br_split[0]
     let h0_temp = n.split('.')
     let h0 = h0_temp[0] + '.' + h0_temp[1] + '.' + h0_temp[2] + '.' + (parseInt(h0_temp[3]) + 1)
 
     let h1_temp = br.split('.')
     let r = h1_temp[0] + '.' + h1_temp[1] + '.' + h1_temp[2] + '.' + (parseInt(h1_temp[3]) - 1)
     let h1 = h1_temp[0] + '.' + h1_temp[1] + '.' + h1_temp[2] + '.' + (parseInt(h1_temp[3]) - 2)
-    //let n = '192.168.1.0/24'
     //let r = '192.168.1.254'
     //let h0 = '192.168.1.1'
     //let h1 = '192.168.1.253'
     //let br = '192.168.1.254'
 
     let query = `/?n=${n}&r=${r}&h0=${h0}&h1=${h1}&br=${br}`
-    const response = await fetch(URL + query)
-    const data = await response.text()
-    console.log(data)
-    setSVG(data)
+    setLoading(true)
+    fetch(URL + query)
+      .then((response) => response.text())
+      .then((data) => setSVG(data))
+      .catch(() => setSnackbarState({open: true, message: 'Failed generating image'}))
+      .finally(() => setLoading(false))
+
   }
 
   return (
@@ -152,9 +169,15 @@ export default function ListResults({ val, output }) {
         val == 40 ?
           (
             <>
-              <Button variant="contained" onClick={handleClick} fullWidth>Contained</Button>
+              <Button variant="contained" onClick={handleClick} sx={{mb: 2}} fullWidth>Contained</Button>
               <Container maxWidth="sm">
-                <div dangerouslySetInnerHTML={{ __html: svg }} />
+                { 
+                  loading ?
+                  <Box display='flex' justifyContent='center'>
+                    <CircularProgress color='primary' />
+                  </ Box>
+                  : <div dangerouslySetInnerHTML={{ __html: svg }} />
+                }
               </Container>
             </>
           ) : (null)
