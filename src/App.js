@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
 import AppBar from '@mui/material/AppBar';
@@ -7,7 +6,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ShopIcon from '@mui/icons-material/Shop';                
 
 import Grid2 from '@mui/material/Unstable_Grid2';
@@ -21,21 +19,14 @@ import BtnAction from './Components/BtnActions'
 import ListResults from './Components/ListResults'
 import TxtHosts from './Components/TxtHosts';
 import SnackbarError from './Components/SnackbarError';
-import { color } from '@mui/system';
-import { Link } from '@mui/material';
+import Link from '@mui/material/Link';
 
 
 
 export default function App() {
   const [state, setState] = useState(40)
   const [output, setOutput] = useState([])
-
-  //const [inputCIDR, setInputCIDR] = useState("");
-  //const [inputHosts, setInputHosts] = useState("");
-  //const [texts, setTexts] = useState({
-  //  cidr: '',
-  //  hosts: '',
-  //})
+  const [svg, setSVG] = useState('')
 
   const [snackbarState, setSnackbarState] = useState({
     open: false,
@@ -67,7 +58,9 @@ export default function App() {
                 //onClick={handleMenu}
                 color="secondary"
               >
-              <ShopIcon />
+              <Link href="https://play.google.com/store/apps/details?id=com.maur.nethelper" color="inherit" target='_blank' rel="noopener">
+                <ShopIcon />
+              </Link>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -83,6 +76,7 @@ export default function App() {
               onActionChange={setState} 
               refCIDR={refCIDR}
               setSnackbarState={setSnackbarState}
+              setSVG={setSVG}
               //onInputCIDR={setInputCIDR}
               //onInputHosts={setInputHosts} 
               //setTexts={setTexts}
@@ -100,9 +94,8 @@ export default function App() {
               ref={refCIDR} // ref to input in TextField to read CIDR value
               />
           </Grid2>
-
           {
-            state == 42 ? 
+            state === 42 ? 
             (
               <Grid2 item xs={12}>
                 <TxtHosts 
@@ -118,7 +111,7 @@ export default function App() {
 
 
           <Grid2 item xs={12}>
-              <ListResults val={state} output={output} setSnackbarState={setSnackbarState}/>
+              <ListResults svg={svg} setSVG={setSVG} val={state} output={output} setSnackbarState={setSnackbarState}/>
           </Grid2>
 
 

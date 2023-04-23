@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -121,16 +121,16 @@ function CondRender({ val, output }) {
 
 
 
-export default function ListResults({ val, output, setSnackbarState }) {
-  const [svg, setSVG] = useState('')
+export default function ListResults({ svg, setSVG, val, output, setSnackbarState }) {
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
 
 
-    const URL = 'http://localhost:3001'
+    // URL + ENDPOINT
+    const URL = 'http://localhost:3001/ipv4'
     
-    if (output.length == 0)
+    if (output.length === 0)
     {
       setSnackbarState({open: true, message: 'No generated content'})
       return
@@ -151,12 +151,15 @@ export default function ListResults({ val, output, setSnackbarState }) {
     //let h1 = '192.168.1.253'
     //let br = '192.168.1.254'
 
-    let query = `/?n=${n}&r=${r}&h0=${h0}&h1=${h1}&br=${br}`
+    let query = `?n=${n}&r=${r}&h0=${h0}&h1=${h1}&br=${br}`
     setLoading(true)
     fetch(URL + query)
       .then((response) => response.text())
       .then((data) => setSVG(data))
-      .catch(() => setSnackbarState({open: true, message: 'Failed generating image'}))
+      .catch(() => { 
+        setSnackbarState({open: true, message: 'Failed generating image'})
+        setSVG("") 
+      })
       .finally(() => setLoading(false))
 
   }
@@ -166,15 +169,15 @@ export default function ListResults({ val, output, setSnackbarState }) {
       <CondRender val={val} output={output} />
 
       {
-        val == 40 ?
+        val === 40 ?
           (
             <>
-              <Button variant="contained" onClick={handleClick} sx={{mb: 2}} fullWidth>Contained</Button>
+              <Button variant="contained" onClick={handleClick} sx={{mb: 2}} fullWidth>Generate example</Button>
               <Container maxWidth="sm">
                 { 
                   loading ?
                   <Box display='flex' justifyContent='center'>
-                    <CircularProgress color='primary' />
+                    <CircularProgress color='primary'/>
                   </ Box>
                   : <div dangerouslySetInnerHTML={{ __html: svg }} />
                 }
