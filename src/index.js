@@ -7,40 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import amber from '@mui/material/colors/amber';
-import deepOrange from '@mui/material/colors/deepOrange';
-import grey from '@mui/material/colors/grey';
-
-//const getDesignTokens = (mode) => ({
-//  palette: {
-//    mode,
-//    ...(mode === 'light'
-//      ? {
-//          // palette values for light mode
-//          primary: amber,
-//          divider: amber[200],
-//          text: {
-//            primary: grey[900],
-//            secondary: grey[800],
-//          },
-//        }
-//      : {
-//          // palette values for dark mode
-//          primary: deepOrange,
-//          divider: deepOrange[700],
-//          background: {
-//            default: '#121212',
-//            paper: deepOrange[900],
-//          },
-//          text: {
-//            primary: '#fff',
-//            secondary: grey[500],
-//          },
-//        }),
-//  },
-//});
-//const darkThemeTEST = createTheme(getDesignTokens('dark'));
-
 const cLightBlue = {
   50: '#e2fbff',
   100: '#b6f5fe',

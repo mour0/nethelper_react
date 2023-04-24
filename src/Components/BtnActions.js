@@ -7,27 +7,25 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 
-export default function BtnActions({setSVG,val, onOutputChange, onActionChange, refCIDR, setSnackbarState}) {
+export default function BtnActions({index, setIndex, setOutput,  refCIDR, setSnackbarState, setSVG}) {
 
     const handleActionChange = useCallback(event => {
-        onActionChange(event.target.value)
-        onOutputChange([])
+        setIndex(event.target.value)
+        setOutput([])
         setSnackbarState({open: false, message: ''})
         setSVG('')
         refCIDR.current.value = ""
-        //console.log(event.target.value)
-        
-    }, [onActionChange])
+    }, [setIndex])
 
 
     return (
 
         <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Action</InputLabel>
+            <InputLabel id="select-index-label">Action</InputLabel>
             <Select
-            labelId="demo-simple-select-label"
-            id="select-action"
-            value={val}
+            labelId="select-index-label"
+            id="select-index"
+            value={index}
             label="Action"
             onChange={handleActionChange}
             >

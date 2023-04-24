@@ -24,7 +24,7 @@ import Link from '@mui/material/Link';
 
 
 export default function App() {
-  const [state, setState] = useState(40)
+  const [index, setIndex] = useState(40)
   const [output, setOutput] = useState([])
   const [svg, setSVG] = useState('')
 
@@ -35,14 +35,6 @@ export default function App() {
   const refCIDR = useRef(null);
   const refHost = useRef(null);
 
-
-  //changeAction = value => {
-  //  this.setState({action: value},
-  //    () => {
-  //      console.log(this.state.action); // qui viene stampato il valore corretto
-  //    });
-  //}
-
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position="static">
@@ -52,10 +44,9 @@ export default function App() {
           </Typography>
           <IconButton
                 size="large"
-                aria-label="account of current user"
+                aria-label="visit app"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                //onClick={handleMenu}
                 color="secondary"
               >
               <Link href="https://play.google.com/store/apps/details?id=com.maur.nethelper" color="inherit" target='_blank' rel="noopener">
@@ -71,15 +62,12 @@ export default function App() {
 
           <Grid2 xs={4}>
             <BtnAction 
-              val={state} 
-              onOutputChange={setOutput} 
-              onActionChange={setState} 
+              index={index} 
+              setIndex={setIndex} 
+              setOutput={setOutput} 
               refCIDR={refCIDR}
               setSnackbarState={setSnackbarState}
               setSVG={setSVG}
-              //onInputCIDR={setInputCIDR}
-              //onInputHosts={setInputHosts} 
-              //setTexts={setTexts}
               
               
               />
@@ -87,20 +75,20 @@ export default function App() {
 
           <Grid2 xs={8}>
               <TxtSanitized 
-              val={state} 
-              onOutputChange={setOutput} 
+              index={index} 
+              setOutput={setOutput} 
               refHost={refHost} 
               setSnackbarState={setSnackbarState}
               ref={refCIDR} // ref to input in TextField to read CIDR value
               />
           </Grid2>
           {
-            state === 42 ? 
+            index === 42 ? 
             (
               <Grid2 item xs={12}>
                 <TxtHosts 
-                  val={state} 
-                  onOutputChange={setOutput} 
+                  index={index} 
+                  setOutput={setOutput} 
                   refCIDR={refCIDR}
                   setSnackbarState={setSnackbarState}
                   ref={refHost} // ref to input in TextField to read host value
@@ -111,7 +99,13 @@ export default function App() {
 
 
           <Grid2 item xs={12}>
-              <ListResults svg={svg} setSVG={setSVG} val={state} output={output} setSnackbarState={setSnackbarState}/>
+              <ListResults 
+                svg={svg} 
+                setSVG={setSVG} 
+                index={index} 
+                output={output} 
+                setSnackbarState={setSnackbarState}
+                />
           </Grid2>
 
 

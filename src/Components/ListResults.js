@@ -32,7 +32,7 @@ function LineTitleContent({ title, output }) {
 
 
 
-function CondRender({ val, output }) {
+function CondRender({ index, output }) {
   let temp = (null)
 
   // check if array 'output' is empty
@@ -41,7 +41,7 @@ function CondRender({ val, output }) {
     output = DEFAULT_STATE
   }
 
-  switch (val) {
+  switch (index) {
     case 40:
       temp = (
         <List>
@@ -121,7 +121,7 @@ function CondRender({ val, output }) {
 
 
 
-export default function ListResults({ svg, setSVG, val, output, setSnackbarState }) {
+export default function ListResults({ svg, setSVG, index, output, setSnackbarState }) {
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
@@ -166,10 +166,10 @@ export default function ListResults({ svg, setSVG, val, output, setSnackbarState
 
   return (
     <>
-      <CondRender val={val} output={output} />
+      <CondRender index={index} output={output} />
 
       {
-        val === 40 ?
+        index === 40 ?
           (
             <>
               <Button variant="contained" onClick={handleClick} sx={{mb: 2}} fullWidth>Generate example</Button>
