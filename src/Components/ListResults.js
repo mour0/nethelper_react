@@ -5,6 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Container } from '@mui/material';
 import { Box } from '@mui/material';
+import { auth } from '../firebase';
 
 const SYM = '-'
 const STR_NETWORK = 'Network'
@@ -152,6 +153,10 @@ export default function ListResults({ svg, setSVG, index, output, setSnackbarSta
     //let br = '192.168.1.254'
 
     let query = `?n=${n}&r=${r}&h0=${h0}&h1=${h1}&br=${br}`
+    let user = auth.currentUser;
+    if (user) {
+      query = query.concat(`&email=${user.email}`)
+    }
     setLoading(true)
     fetch(URL + query)
       .then((response) => response.text())

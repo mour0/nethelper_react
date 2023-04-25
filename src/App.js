@@ -25,11 +25,11 @@ import Link from '@mui/material/Link';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Register from './Components/Register';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { GoogleAuthProvider,onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from './firebase'
-
+import HistoryBtn from './Components/HistoryBtn';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function App() {
   const [index, setIndex] = useState(40)
@@ -91,7 +91,8 @@ export default function App() {
           <Typography variant="h6" color='secondary' component="div" sx={{ flexGrow: 1, fontWeight:'bold'}}>
             NetHelper
           </Typography>
-
+          
+          <Tooltip title="Visit App">
           <IconButton
                 size="large"
                 aria-label="Visit app"
@@ -103,10 +104,12 @@ export default function App() {
                 <ShopIcon />
               </Link>
           </IconButton>
+          </Tooltip>
 
           {
             logged === false ?
             (
+              <Tooltip title="Log-In">
               <IconButton
                   size="large"
                   aria-label="Login"
@@ -116,9 +119,11 @@ export default function App() {
                   onClick={handleAuth}
                 >
               <LoginIcon />
-          </IconButton>
+              </IconButton>
+            </Tooltip>
             ) :
             (
+              <Tooltip title="Log-Out">
               <IconButton
                   size="large"
                   aria-label="Logout"
@@ -128,7 +133,8 @@ export default function App() {
                   onClick={handleLogout}
                 >
               <LogoutIcon />
-          </IconButton>
+              </IconButton>
+              </Tooltip>
             )
           }
 
@@ -191,7 +197,7 @@ export default function App() {
                 setSnackbarState={setSnackbarState}
                 />
           </Grid2>
-
+          <HistoryBtn output={output} setSnackbarState={setSnackbarState} />
 
         </Grid2>
         <SnackbarError state={snackbarState} setState={setSnackbarState}/>
