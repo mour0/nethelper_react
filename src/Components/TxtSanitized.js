@@ -15,7 +15,7 @@ function parse_num(n)
 const CALCULATOR_v4 = 40
 const MASK_V4 = 41
 const VLSM_v4 = 42
-const CALCULATOR_v6 = 40
+const CALCULATOR_v6 = 60
 const MASK_V6 = 61
 
 

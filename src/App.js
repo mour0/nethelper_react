@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from '@mui/material/Container';
 
 import AppBar from '@mui/material/AppBar';
@@ -22,6 +22,14 @@ import SnackbarError from './Components/SnackbarError';
 import Link from '@mui/material/Link';
 
 
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Register from './Components/Register';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider,onAuthStateChanged } from "firebase/auth";
+import { auth, provider } from './firebase'
+
 
 export default function App() {
   const [index, setIndex] = useState(40)
@@ -35,6 +43,47 @@ export default function App() {
   const refCIDR = useRef(null);
   const refHost = useRef(null);
 
+  const [logged, setLogged] = useState(false)
+
+  const handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+
+        const user = result.user;
+        setLogged(true)
+
+      }).catch((error) => {
+        //const email = error.customData.email;
+        //console.log(email)
+        setLogged(false);
+
+      });
+  }
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      setLogged(false)
+      //console.log("OK logout")
+      setSnackbarState({open: true, message: 'You have been logged out'})
+
+    }).catch((error) => {
+      //console.log("ERR logout")
+      setSnackbarState({open: true, message: 'Failed to logout'})
+    });
+  }
+
+
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const email = user.email;
+        setLogged(true)
+        setSnackbarState({open: true, message: 'Logged with ' + email})
+      }
+    })
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position="static">
@@ -42,9 +91,10 @@ export default function App() {
           <Typography variant="h6" color='secondary' component="div" sx={{ flexGrow: 1, fontWeight:'bold'}}>
             NetHelper
           </Typography>
+
           <IconButton
                 size="large"
-                aria-label="visit app"
+                aria-label="Visit app"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="secondary"
@@ -53,6 +103,40 @@ export default function App() {
                 <ShopIcon />
               </Link>
           </IconButton>
+
+          {
+            logged === false ?
+            (
+              <IconButton
+                  size="large"
+                  aria-label="Login"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="secondary"
+                  onClick={handleAuth}
+                >
+              <LoginIcon />
+          </IconButton>
+            ) :
+            (
+              <IconButton
+                  size="large"
+                  aria-label="Logout"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="secondary"
+                  onClick={handleLogout}
+                >
+              <LogoutIcon />
+          </IconButton>
+            )
+          }
+
+
+
+
+
+
         </Toolbar>
       </AppBar>
 
