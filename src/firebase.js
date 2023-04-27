@@ -11,10 +11,10 @@ const firebaseConfig = {
   projectId: "nethelper-web",
   storageBucket: "nethelper-web.appspot.com",
   messagingSenderId: "139123462110",
-  appId: "1:139123462110:web:9481ced635db434731574f"
+  appId: "1:139123462110:web:9481ced635db434731574f",
 };
 
-// Default auth persistence: Local 
+// Default auth persistence: Local
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -22,4 +22,4 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-export {auth, provider};
+export { auth, provider };
