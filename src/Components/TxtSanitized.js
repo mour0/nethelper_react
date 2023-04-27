@@ -134,11 +134,9 @@ const TxtSanitized = forwardRef(
         inputRef={ref}
         required
         fullWidth
-        pattern="[0-9./]+"
         id="outlined-basic"
         label="CIDR"
         variant="outlined"
-        inputProps={{ pattern: "[0-9./]*" }}
         onChange={(e) => {
           if (wasmLoaded) {
             handleCalc(e);
