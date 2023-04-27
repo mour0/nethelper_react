@@ -22,11 +22,10 @@ import SnackbarError from './Components/SnackbarError';
 import Link from '@mui/material/Link';
 
 
-import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { GoogleAuthProvider,onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from './firebase'
 import HistoryBtn from './Components/HistoryBtn';
 import Tooltip from '@mui/material/Tooltip';
@@ -49,7 +48,7 @@ export default function App() {
     signInWithPopup(auth, provider)
       .then((result) => {
 
-        const user = result.user;
+        //const user = result.user;
         setLogged(true)
 
       }).catch((error) => {

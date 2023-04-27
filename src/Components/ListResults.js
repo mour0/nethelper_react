@@ -30,14 +30,10 @@ function LineTitleContent({ title, output }) {
   )
 }
 
-
-
-
 function CondRender({ index, output }) {
   let temp = (null)
 
   // check if array 'output' is empty
-  //console.log(output.length)
   if (output.length === 0) {
     output = DEFAULT_STATE
   }
@@ -81,16 +77,6 @@ function CondRender({ index, output }) {
           }
         </List>
       )
-      //let a = output.map((el, index) => { return (
-      //  <ListItem key={index}>
-      //    <ListItemText sx={{whiteSpace:'pre-line'}} primary={index} secondary={el} />
-      //  </ListItem>
-      //)})
-      //temp = (
-      //  <List>
-      //    {a}
-      //  </List>
-      //)
       break
     case 60:
       temp = (

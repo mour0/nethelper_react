@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
 import { auth } from '../firebase';
@@ -6,8 +6,6 @@ import { auth } from '../firebase';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 export default function HistoryBtn({ output, setSnackbarState }) {
     const [open, setOpen] = React.useState(false)
@@ -23,12 +21,18 @@ export default function HistoryBtn({ output, setSnackbarState }) {
         }
         let query = `?email=${user.email}`
         fetch(URL + query)
-        .then((response) => response.text())
+        .then((response) => { 
+            response.text()
+        })
         .then((data) => {
-            // check if data is empty?
-            // Show saved
-            setOpen(true)
-            setSVG(data)
+            // data == undefined => empty history
+            if (data === undefined) {
+                setSnackbarState({open: true, message: 'History is empty'})
+            }
+            else {
+                setOpen(true)
+                setSVG(data)
+            }
         })
         .catch(() => { 
             setSnackbarState({open: true, message: 'Failed to fetch image'})
@@ -68,9 +72,25 @@ export default function HistoryBtn({ output, setSnackbarState }) {
         let query = `?n=${n}&r=${r}&h0=${h0}&h1=${h1}&br=${br}&email=${user.email}`
         fetch(URL + query)
         .then((response) => {
-            if (response.status == 200)
+            if (response.status === 200)
             {
                 setSnackbarState({open: true, message: 'Saved'})
+
+                // Notification
+                Notification.requestPermission().then(perm => {
+                    if (perm === "granted")
+                    {
+
+                        var now = new Date();
+                        var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+                        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                        var dateTime = date+' '+time;
+                        const _notification = new Notification("Saved", {
+                            body: "Saved on " + dateTime,
+                            tag: "Save message" // Override notification
+                        })
+                    }
+                })
             }
         })
         .catch(() => { 
