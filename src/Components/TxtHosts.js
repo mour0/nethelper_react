@@ -24,8 +24,8 @@ const TxtHosts = forwardRef(({index, setOutput, refCIDR, setSnackbarState}, ref)
         const regex = /^[0-9\\,]+$/
 
         if (event.target.value === "" || regex.test(event.target.value)) {
-            console.log('value: ' +event.target.value)
-            console.log('inputCIDR: ' + refCIDR.current.value)
+            //console.log('value: ' +event.target.value)
+            //console.log('inputCIDR: ' + refCIDR.current.value)
 
 
             if (event.target.value.length > 0 && refCIDR.current.value.length > 0) 
@@ -39,7 +39,7 @@ const TxtHosts = forwardRef(({index, setOutput, refCIDR, setSnackbarState}, ref)
                            // console.log(split[0])
                            // console.log(parse_num(split[1]))
                             let output = exp_vlsm(split[0],parse_num(split[1]),event.target.value)
-                            console.log(output)
+                            //console.log(output)
                             setOutput(output)
                         }
                         catch (e)
@@ -54,11 +54,7 @@ const TxtHosts = forwardRef(({index, setOutput, refCIDR, setSnackbarState}, ref)
                 }
                 // clear textfield
             }
-            else
-            {
-                console.log('[handleCalc] - else')
-
-            }
+            //else { console.log('[handleCalc] - else') }
         }
         else
         {

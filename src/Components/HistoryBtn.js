@@ -21,12 +21,11 @@ export default function HistoryBtn({ output, setSnackbarState }) {
         }
         let query = `?email=${user.email}`
         fetch(URL + query)
-        .then((response) => { 
-            response.text()
-        })
+        .then((response) => response.text())
         .then((data) => {
             // data == undefined => empty history
-            if (data === undefined) {
+            //console.log(data)
+            if (data === undefined || data === '') {
                 setSnackbarState({open: true, message: 'History is empty'})
             }
             else {

@@ -23,7 +23,7 @@ const HELPER_V4 = 'ex. 192.168.1.1/24'
 const HELPER_MASK4 = 'ex. 24'
 const HELPER_VLSM4 = 'ex. 192.168.1.1/[1-30]'
 const HELPER_V6 = 'ex. 2001:db8:85a3::8a2e:370:7334/64'
-const HELPER_MASK6 = '64'
+const HELPER_MASK6 = 'ex. 64'
 
 const TxtSanitized = forwardRef(({index, setOutput, refHost,setSnackbarState},ref) => {
 
@@ -58,14 +58,11 @@ const TxtSanitized = forwardRef(({index, setOutput, refHost,setSnackbarState},re
                         catch (e) {
                             setSnackbarState({open: true, message: e})
                             setOutput([])
-                            console.log('[handleCalc] - Error 40 - exception')
+                            //console.log('[handleCalc] - Error 40 - exception')
                         }
 
                     }
-                    else
-                    {
-                        console.log('[handleCalc] - Error 40')
-                    }
+                    //else { console.log('[handleCalc] - Error 40') }
                     break
                 } 
 
@@ -122,12 +119,10 @@ const TxtSanitized = forwardRef(({index, setOutput, refHost,setSnackbarState},re
                         catch (e) {
                             setSnackbarState({open: true, message: e})
                             setOutput([])
-                            console.log('[handleCalc] - Error 60 - exception')
+                            //console.log('[handleCalc] - Error 60 - exception')
                         }
                     }
-                    else {
-                        console.log('[handleCalc] - Error 60')
-                    }
+                    //else { console.log('[handleCalc] - Error 60') }
                     break
 
                 }
@@ -154,11 +149,7 @@ const TxtSanitized = forwardRef(({index, setOutput, refHost,setSnackbarState},re
 
 
         }
-        else
-        {
-            console.log('[handleCalc] - else')
-
-        }
+        //else { console.log('[handleCalc] - else') }
     };
 
     return (
