@@ -196,7 +196,10 @@ export default function App() {
                 setSnackbarState={setSnackbarState}
                 />
           </Grid2>
-          <HistoryBtn output={output} setSnackbarState={setSnackbarState} />
+          {
+            index === 40 ? (<HistoryBtn output={output} setSnackbarState={setSnackbarState} />) : (null)
+          }
+
 
         </Grid2>
         <SnackbarError state={snackbarState} setState={setSnackbarState}/>
@@ -208,7 +211,7 @@ export default function App() {
           NetHelper is a tool used to simplify the process of manually calculating broadcast addresses, wildcard masks,
           and more.<br />
           It supports IPv4 and IPv6 and shows the results in decimal and binary notation. <br />
-          Try also the <Link href="https://play.google.com/store/apps/details?id=com.maur.nethelper">NetHelper App</Link>!
+          Try also the <Link href="https://play.google.com/store/apps/details?id=com.maur.nethelper" color="primary" target='_blank' rel="noopener">NetHelper App</Link>!
         </Typography>
         <br />
         <Typography variant='h5' color='primary' component='h5'>
@@ -224,7 +227,7 @@ export default function App() {
           How is everything calculated?
         </Typography>
         <Typography variant="body1" component="div" gutterBottom paragraph>
-          <Typography color='primary' display='inline'>Network Address</Typography> is calculated by doing a bitwise AND between IP address and the subnet mask.
+          <Typography color='primary' display='inline'>Network Address</Typography> is calculated by doing a bitwise AND between the IP address and the subnet mask.
         </Typography>
         <Typography variant="body1" component="div" gutterBottom paragraph>
           <Typography color='primary' display='inline'>Wildcard mask</Typography> is an inverted subnet mask, calculated by doing a bitwise
