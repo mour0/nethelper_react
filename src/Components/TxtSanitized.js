@@ -58,6 +58,14 @@ const TxtSanitized = forwardRef(
           }
 
           case MASK_V4: {
+            // RustLang wrapping display fix
+            if (event.target.value > 32)
+            {
+              setSnackbarState({ open: true, message: "Invalid CIDR" });
+              setOutput([]);
+              break;
+            }
+
             try {
               let output = exp_hosts(event.target.value);
               //console.log(output)
@@ -111,6 +119,14 @@ const TxtSanitized = forwardRef(
           }
 
           case MASK_V6: {
+            // RustLang wrapping display fix
+            if (event.target.value > 128)
+            {
+              setSnackbarState({ open: true, message: "Invalid CIDR" });
+              setOutput([]);
+              break;
+            }
+
             try {
               let output = exp_hosts6(event.target.value);
               //console.log(output)
